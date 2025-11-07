@@ -13,6 +13,7 @@ import {
   FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import animation from "../../assets/login-animation.gif"
 
 export function SignUpPage({
   className,
@@ -63,8 +64,9 @@ export function SignUpPage({
   }
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden p-0">
+    <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden">
+      <div className={cn("flex flex-col gap-6 w-full max-w-4xl", className)} {...props}>
+        <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
           <form className="p-6 md:p-8" onSubmit={onSubmit}>
             <FieldGroup>
@@ -98,10 +100,10 @@ export function SignUpPage({
                   required
                   disabled={loading}
                 />
-                <FieldDescription>
+                {/* <FieldDescription>
                   We&apos;ll use this to contact you. We will not share your
                   email with anyone else.
-                </FieldDescription>
+                </FieldDescription> */}
               </Field>
               
               <Field>
@@ -190,9 +192,9 @@ export function SignUpPage({
           </form>
           <div className="bg-muted relative hidden md:block">
             <img
-              src="/placeholder.svg"
+              src={animation}
               alt="Image"
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+              className="absolute inset-0 h-full w-full object-cover dark:grayscale"
             />
           </div>
         </CardContent>
@@ -201,6 +203,7 @@ export function SignUpPage({
         By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
         and <a href="#">Privacy Policy</a>.
       </FieldDescription>
+      </div>
     </div>
   )
 }

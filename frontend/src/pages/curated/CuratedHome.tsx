@@ -2,31 +2,14 @@ import { useAuth } from "@/contexts/AuthContext"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { Header } from "@/components/layout/Header"
 
 export function CuratedHome() {
-  const { user, logout } = useAuth()
+  const { user } = useAuth()
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground">
-              {user?.email}
-            </span>
-            <Link to="/profile">
-              <Button variant="outline" size="sm">
-                Profile
-              </Button>
-            </Link>
-            <Button variant="outline" size="sm" onClick={logout}>
-              Logout
-            </Button>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-16">

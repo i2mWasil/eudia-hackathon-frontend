@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom"
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute"
 import { Home } from "@/pages/Home"
-import { LoginPage } from "@/pages/LoginPage"
-import { SignUpPage } from "@/pages/SignUpPage"
+import { LoginPage } from "@/pages/auth/LoginPage"
+import { SignUpPage } from "@/pages/auth/SignUpPage"
 import { Profile } from "@/pages/Profile"
 
 export function AppRoutes() {
