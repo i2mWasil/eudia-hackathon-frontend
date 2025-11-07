@@ -149,7 +149,7 @@ export function SignUpPage({
                 </Button>
               </Field>
               
-              <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
+              {/* <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
                 Or continue with
               </FieldSeparator>
               
@@ -181,7 +181,7 @@ export function SignUpPage({
                   </svg>
                   <span className="sr-only">Sign up with Meta</span>
                 </Button>
-              </Field>
+              </Field> */}
               
               <FieldDescription className="text-center">
                 Already have an account? <Link to="/login" className="underline">Sign in</Link>

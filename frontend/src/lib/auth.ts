@@ -80,33 +80,80 @@ export async function registerUser(
       body: formData.toString(),
     })
 
-    // Backend returns 201 with a simple string response
+    // Check content type to determine how to parse response
+    const contentType = response.headers.get("content-type")
+    
+    // Backend returns 201 on success
     if (response.status === 201) {
-      const message = await response.text()
-      return {
-        success: true,
-        message: message || "Account created successfully",
+      // Try to parse as JSON first, fall back to text
+      try {
+        const data = await response.json()
+        
+        // Check if user already exists
+        if (data.exists === false) {
+          return {
+            success: false,
+            error: "Account already exists. Please log in instead.",
+          }
+        }
+        
+        return {
+          success: true,
+          message: data.message || "Account created successfully",
+        }
+      } catch {
+        const message = await response.text()
+        return {
+          success: true,
+          message: message || "Account created successfully",
+        }
       }
     }
 
-    // Handle 422 validation errors
-    if (response.status === 422) {
+    // Handle error responses
+    try {
       const data = await response.json()
-      // Extract error message from validation error format
-      const errorMsg = data.detail?.[0]?.msg || "Validation failed"
+      
+      // Check if user already exists (alternative check)
+      if (data.exists === false) {
+        return {
+          success: false,
+          error: "Account already exists. Please log in instead.",
+        }
+      }
+      
+      // Handle 422 validation errors
+      if (response.status === 422 && data.detail) {
+        const errorMsg = Array.isArray(data.detail) 
+          ? data.detail[0]?.msg || "Validation failed"
+          : data.detail
+        return {
+          success: false,
+          error: errorMsg,
+        }
+      }
+
+      // Handle other errors with detail field
       return {
         success: false,
-        error: errorMsg,
+        error: data.detail || data.message || "Registration failed",
+      }
+    } catch {
+      // If JSON parsing fails, try text
+      const errorText = await response.text()
+      return {
+        success: false,
+        error: errorText || "Registration failed",
       }
     }
-
-    // Handle other errors
-    const errorText = await response.text()
-    return {
-      success: false,
-      error: errorText || "Registration failed",
-    }
   } catch (err) {
+    // Check if it's a CORS error
+    if (err instanceof TypeError && err.message.includes('Failed to fetch')) {
+      return {
+        success: false,
+        error: "CORS error: Cannot connect to server. Please ensure CORS is enabled on the backend at " + serverUrl,
+      }
+    }
     return {
       success: false,
       error: err instanceof Error ? err.message : "An error occurred during registration",
@@ -131,8 +178,9 @@ export async function loginUser(
 
   try {
     // Create form-urlencoded data as required by backend
+    // Note: Backend expects 'username' field, not 'email'
     const formData = new URLSearchParams()
-    formData.append('email', credentials.email)
+    formData.append('email', credentials.email)  // Backend uses 'username' field
     formData.append('password', credentials.password)
 
     const response = await fetch(`${serverUrl}/auth/login`, {
@@ -143,36 +191,53 @@ export async function loginUser(
       body: formData.toString(),
     })
 
-    const data = await response.json()
+    // Parse response
+    try {
+      const data = await response.json()
 
-    if (!response.ok) {
-      // Handle 422 validation errors
-      if (response.status === 422) {
-        const errorMsg = data.detail?.[0]?.msg || "Validation failed"
+      if (!response.ok) {
+        // Handle 422 validation errors
+        if (response.status === 422 && data.detail) {
+          const errorMsg = Array.isArray(data.detail) 
+            ? data.detail[0]?.msg || "Validation failed"
+            : data.detail
+          return {
+            success: false,
+            error: errorMsg,
+          }
+        }
+        
         return {
           success: false,
-          error: errorMsg,
+          error: data.detail || data.message || "Login failed",
         }
       }
-      
+
+      // Success - backend returns { access_token, token_type }
+      const accessToken = data.access_token || data.token
+
+      return {
+        success: true,
+        message: "Login successful",
+        token: accessToken,
+        access_token: data.access_token,
+        token_type: data.token_type || "bearer",
+        user: data.user || { email: credentials.email, id: data.user_id },
+      }
+    } catch (parseError) {
       return {
         success: false,
-        error: data.detail || "Login failed",
+        error: "Failed to parse server response",
       }
     }
-
-    // Support both 'access_token' (JWT standard) and 'token' formats
-    const accessToken = data.access_token || data.token
-
-    return {
-      success: true,
-      message: "Login successful",
-      token: accessToken,
-      access_token: data.access_token,
-      token_type: data.token_type || "bearer",
-      user: data.user || { email: credentials.email, id: data.user_id },
-    }
   } catch (err) {
+    // Check if it's a CORS error
+    if (err instanceof TypeError && err.message.includes('Failed to fetch')) {
+      return {
+        success: false,
+        error: "CORS error: Cannot connect to server. Please ensure CORS is enabled on the backend at " + serverUrl,
+      }
+    }
     return {
       success: false,
       error: err instanceof Error ? err.message : "An error occurred during login",

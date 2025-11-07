@@ -100,8 +100,8 @@ export function LoginPage({
                   {loading ? "Logging in..." : "Login"}
                 </Button>
               </Field>
-
-              <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
+              
+              {/* <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
                 Or continue with
               </FieldSeparator>
 
@@ -133,7 +133,7 @@ export function LoginPage({
                   </svg>
                   <span className="sr-only">Login with Meta</span>
                 </Button>
-              </Field>
+              </Field> */}
 
               <FieldDescription className="text-center">
                 Don&apos;t have an account? <Link to="/signup" className="underline">Sign up</Link>
