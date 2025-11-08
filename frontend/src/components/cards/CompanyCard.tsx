@@ -1,41 +1,20 @@
 import { Card, CardContent } from "@/components/ui/card"
-import { ImageWithFallback } from "@/components/figma/ImageWithFallback"
 import { Progress } from "@/components/ui/progress"
 import { getScoreColor } from "@/lib/score-colors"
-
-export interface Metric {
-  name: string;
-  score: number;
-}
-
-export interface Company {
-  id: string;
-  name: string;
-  logoUrl: string;
-  metrics: Metric[];
-  overallScore: number;
-}
+import type { Company } from "@/types/company"
 
 interface CompanyCardProps {
-  company: Company;
+  company: Company
 }
 
 export function CompanyCard({ company }: CompanyCardProps) {
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow group">
-      {/* Extended Logo Banner with Hover Overlay */}
-      <div className="relative h-48 overflow-hidden bg-gray-100">
-        <ImageWithFallback
-          src={company.logoUrl}
-          alt={`${company.name} logo`}
-          className="w-full h-full object-cover"
-        />
-        {/* Dark overlay with company name on hover */}
-        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <div className="text-center">
-            <h3 className="text-white text-6xl font-semibold px-4 font-serif">{company.name}</h3>
-            <p className="text-white/80 text-sm mt-2 font-sans">Click for more details</p>
-          </div>
+      {/* Company Name Banner */}
+      <div className="relative h-48 overflow-hidden bg-black/60 flex items-center justify-center">
+        <div className="text-center">
+          <h3 className="text-white text-6xl font-semibold px-4 font-serif">{company.name}</h3>
+          <p className="text-white/80 text-sm mt-2 font-sans">Click for more details</p>
         </div>
       </div>
       

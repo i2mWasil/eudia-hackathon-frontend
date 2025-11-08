@@ -6,6 +6,7 @@ import { SignUpPage } from "@/pages/auth/SignUpPage"
 import { Profile } from "@/pages/Profile"
 import { ExplorePage } from "@/pages/public/ExplorePage"
 import { CuratedExplorePage } from "@/pages/curated/CuratedExplorePage"
+import { DashboardPage } from "@/pages/curated/DashboardPage"
 
 export function AppRoutes() {
   return (
@@ -34,6 +35,14 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <CuratedExplorePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardPage />
           </ProtectedRoute>
         }
       />

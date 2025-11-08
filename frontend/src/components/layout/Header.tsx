@@ -7,13 +7,26 @@ import { useState } from "react"
 
 interface HeaderProps {
   showSearch?: boolean
+  title?: string
+  searchQuery?: string
+  onSearchChange?: (query: string) => void
+  onSearchSubmit?: (query: string) => void
 }
 
-export function Header({ showSearch = false }: HeaderProps) {
+export function Header({ 
+  showSearch = false, 
+  title,
+  searchQuery: externalSearchQuery,
+  onSearchChange,
+  onSearchSubmit
+}: HeaderProps) {
   const { isAuthenticated, logout } = useAuth()
   const { theme, toggleTheme } = useTheme()
   const navigate = useNavigate()
-  const [searchQuery, setSearchQuery] = useState("")
+  const [internalSearchQuery, setInternalSearchQuery] = useState("")
+  
+  // Use external search query if provided, otherwise use internal state
+  const searchQuery = externalSearchQuery !== undefined ? externalSearchQuery : internalSearchQuery
 
   const handleLogout = () => {
     logout()
@@ -22,8 +35,20 @@ export function Header({ showSearch = false }: HeaderProps) {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle search logic here
-    console.log("Searching for:", searchQuery)
+    if (onSearchSubmit) {
+      onSearchSubmit(searchQuery)
+    } else {
+      console.log("Searching for:", searchQuery)
+    }
+  }
+  
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    if (onSearchChange) {
+      onSearchChange(value)
+    } else {
+      setInternalSearchQuery(value)
+    }
   }
 
   return (
@@ -34,6 +59,13 @@ export function Header({ showSearch = false }: HeaderProps) {
           <h1 className="text-4xl font-serif">ProBono</h1>
         </Link>
 
+        {/* Page Title - shown when title prop is provided */}
+        {title && (
+          <div className="flex-1 mx-8">
+            <h2 className="text-5xl font-bold font-serif">{title}</h2>
+          </div>
+        )}
+
         {/* Search Bar - Only shown when showSearch is true */}
         {showSearch && (
           <form onSubmit={handleSearch} className="flex-1 max-w-2xl mx-8">
@@ -42,7 +74,7 @@ export function Header({ showSearch = false }: HeaderProps) {
                 type="text"
                 placeholder="Search services..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleSearchInputChange}
                 className="w-full pl-10 pr-4 py-2 rounded-lg"
               />
               <svg
