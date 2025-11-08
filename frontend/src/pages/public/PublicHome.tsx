@@ -1,60 +1,124 @@
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import { Header } from "@/components/layout/Header"
+import { Footer } from "@/components/layout/Footer"
+import { useTheme } from "@/contexts/ThemeContext"
+import artDarkSvg from "@/assets/art-dark.svg"
+import artLightSvg from "@/assets/art-light.svg"
+import adidasLogo from "@/assets/scroller/logo-adidas.svg"
+import anthropicLogo from "@/assets/scroller/logo-anthropic.svg"
+import appleLogo from "@/assets/scroller/logo-apple.svg"
+import disneyLogo from "@/assets/scroller/logo-disney.svg"
+import indeedLogo from "@/assets/scroller/logo-indeed.svg"
+import instagramLogo from "@/assets/scroller/logo-instagram.svg"
+import metaLogo from "@/assets/scroller/logo-meta.svg"
+import netflixLogo from "@/assets/scroller/logo-netflix.svg"
+import nikeLogo from "@/assets/scroller/logo-nike.svg"
+import perplexityLogo from "@/assets/scroller/logo-perplexity.svg"
+import playstationLogo from "@/assets/scroller/logo-playstation.svg"
+import redditLogo from "@/assets/scroller/logo-reddit.svg"
+import samsungLogo from "@/assets/scroller/logo-samsung.svg"
+import spotifyLogo from "@/assets/scroller/logo-spotify.svg"
+import uberLogo from "@/assets/scroller/logo-uber.svg"
+
+const logos = [
+  adidasLogo,
+  anthropicLogo,
+  appleLogo,
+  disneyLogo,
+  indeedLogo,
+  instagramLogo,
+  metaLogo,
+  netflixLogo,
+  nikeLogo,
+  perplexityLogo,
+  playstationLogo,
+  redditLogo,
+  samsungLogo,
+  spotifyLogo,
+  uberLogo,
+]
 
 export function PublicHome() {
+  const { theme } = useTheme()
+  
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background text-foreground relative">
+      {/* Header */}
       <Header />
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            Welcome to Our Platform
-          </h1>
-          <p className="text-xl text-muted-foreground">
-            Discover amazing features and experiences. Sign in to unlock personalized content.
-          </p>
 
-          <div className="flex gap-4 justify-center">
-            <Link to="/signup">
-              <Button size="lg">Get Started</Button>
-            </Link>
-            <Link to="/login">
-              <Button size="lg" variant="outline">
-                Sign In
+      {/* Hero Section */}
+      <div className="relative px-6">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-160px)]">
+          {/* Left Content */}
+          <div className="space-y-6">
+            <h2 className="text-5xl lg:text-7xl font-serif leading-[1.1] max-w-[500px] text-left">
+              Know how your data gets <em className="italic">used</em>.
+            </h2>
+            
+            <p className="text-thin text-muted-foreground max-w-lg leading-relaxed pt-4 text-left">
+              Most big corporations obscure their intentions with your data behind legal jargon. <span className="font-normal">ProBono</span> keeps you informed about it.
+            </p>
+            
+            {/* Buttons */}
+            <div className="flex gap-4 pt-8">
+              <Button 
+                size="lg" 
+                className="px-10 py-6 rounded-lg text-lg"
+                asChild
+              >
+                <Link to="/explore">Explore</Link>
               </Button>
-            </Link>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="px-10 py-6 rounded-lg text-lg"
+                asChild
+              >
+                <Link to="/track">Track</Link>
+              </Button>
+            </div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-2">Feature One</h3>
-                <p className="text-muted-foreground">
-                  Access to basic features available to everyone
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-2">Feature Two</h3>
-                <p className="text-muted-foreground">
-                  Explore our public content and resources
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-2">Feature Three</h3>
-                <p className="text-muted-foreground">
-                  Join our community and stay connected
-                </p>
-              </CardContent>
-            </Card>
+          
+          {/* Right Illustration */}
+          <div className="relative h-[500px] lg:h-[600px] flex items-center justify-center">
+            <img 
+              src={theme === "dark" ? artDarkSvg : artLightSvg}
+              alt="Data usage illustration" 
+              className="w-full h-full max-w-md object-contain"
+            />
           </div>
         </div>
       </div>
+
+      {/* Infinite Scroller Section */}
+      <div className="relative z-10 py-4 scroll-fade-container">
+        <div className="flex animate-scroll">
+          {/* First set of logos */}
+          {logos.map((logo, index) => (
+            <div key={`logo-1-${index}`} className="flex-shrink-0 mx-12">
+              <img 
+                src={logo} 
+                alt={`Company logo ${index + 1}`}
+                className="h-12 w-auto opacity-40 grayscale hover:opacity-60 hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+          ))}
+          {/* Duplicate set for seamless loop */}
+          {logos.map((logo, index) => (
+            <div key={`logo-2-${index}`} className="flex-shrink-0 mx-12">
+              <img 
+                src={logo} 
+                alt={`Company logo ${index + 1}`}
+                className="h-12 w-auto opacity-40 grayscale hover:opacity-60 hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }

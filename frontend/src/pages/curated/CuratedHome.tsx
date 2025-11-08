@@ -1,83 +1,127 @@
 import { useAuth } from "@/contexts/AuthContext"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import { Header } from "@/components/layout/Header"
+import { Footer } from "@/components/layout/Footer"
+import { useTheme } from "@/contexts/ThemeContext"
+import artDarkSvg from "@/assets/art-dark.svg"
+import artLightSvg from "@/assets/art-light.svg"
+import adidasLogo from "@/assets/scroller/logo-adidas.svg"
+import anthropicLogo from "@/assets/scroller/logo-anthropic.svg"
+import appleLogo from "@/assets/scroller/logo-apple.svg"
+import disneyLogo from "@/assets/scroller/logo-disney.svg"
+import indeedLogo from "@/assets/scroller/logo-indeed.svg"
+import instagramLogo from "@/assets/scroller/logo-instagram.svg"
+import metaLogo from "@/assets/scroller/logo-meta.svg"
+import netflixLogo from "@/assets/scroller/logo-netflix.svg"
+import nikeLogo from "@/assets/scroller/logo-nike.svg"
+import perplexityLogo from "@/assets/scroller/logo-perplexity.svg"
+import playstationLogo from "@/assets/scroller/logo-playstation.svg"
+import redditLogo from "@/assets/scroller/logo-reddit.svg"
+import samsungLogo from "@/assets/scroller/logo-samsung.svg"
+import spotifyLogo from "@/assets/scroller/logo-spotify.svg"
+import uberLogo from "@/assets/scroller/logo-uber.svg"
+
+const logos = [
+  adidasLogo,
+  anthropicLogo,
+  appleLogo,
+  disneyLogo,
+  indeedLogo,
+  instagramLogo,
+  metaLogo,
+  netflixLogo,
+  nikeLogo,
+  perplexityLogo,
+  playstationLogo,
+  redditLogo,
+  samsungLogo,
+  spotifyLogo,
+  uberLogo,
+]
 
 export function CuratedHome() {
   const { user } = useAuth()
+  const { theme } = useTheme()
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background text-foreground relative">
+      {/* Header */}
       <Header />
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto space-y-8">
-          <div>
-            <h2 className="text-3xl font-bold mb-2">
-              Welcome back, {user?.email?.split("@")[0]}!
+      {/* Hero Section */}
+      <div className="relative px-6">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-160px)]">
+          {/* Left Content */}
+          <div className="space-y-6">
+            <h2 className="text-5xl lg:text-7xl font-serif leading-[1.1] text-left">
+              Welcome back,<br />
+              <span className="text-4xl lg:text-6xl">{user?.email?.split("@")[0]}!</span>
             </h2>
-            <p className="text-muted-foreground">
-              Here's your personalized experience
+            
+            <p className="text-thin text-muted-foreground max-w-lg leading-relaxed pt-4 text-left">
+              Your personalized dashboard to track how your data is being <em className="italic">used</em> across the web.
             </p>
+            
+            {/* Buttons */}
+            <div className="flex gap-4 pt-8">
+              <Button 
+                size="lg" 
+                className="px-10 py-6 rounded-lg text-lg"
+                asChild
+              >
+                <Link to="/dashboard">View Dashboard</Link>
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="px-10 py-6 rounded-lg text-lg"
+                asChild
+              >
+                <Link to="/profile">Profile</Link>
+              </Button>
+            </div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-2">Your Activity</h3>
-                <p className="text-muted-foreground mb-4">
-                  Track your recent interactions and progress
-                </p>
-                <Button variant="outline" size="sm">
-                  View Details
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-2">
-                  Recommendations
-                </h3>
-                <p className="text-muted-foreground mb-4">
-                  Personalized content just for you
-                </p>
-                <Button variant="outline" size="sm">
-                  Explore
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-2">Quick Actions</h3>
-                <p className="text-muted-foreground mb-4">
-                  Frequently used features and shortcuts
-                </p>
-                <Button variant="outline" size="sm">
-                  Get Started
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-2">Settings</h3>
-                <p className="text-muted-foreground mb-4">
-                  Manage your account and preferences
-                </p>
-                <Link to="/profile">
-                  <Button variant="outline" size="sm">
-                    Go to Profile
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+          
+          {/* Right Illustration */}
+          <div className="relative h-[500px] lg:h-[600px] flex items-center justify-center">
+            <img 
+              src={theme === "dark" ? artDarkSvg : artLightSvg}
+              alt="Data usage illustration" 
+              className="w-full h-full max-w-md object-contain"
+            />
           </div>
         </div>
       </div>
+
+      {/* Infinite Scroller Section */}
+      <div className="relative z-10 py-4 scroll-fade-container">
+        <div className="flex animate-scroll">
+          {/* First set of logos */}
+          {logos.map((logo, index) => (
+            <div key={`logo-1-${index}`} className="flex-shrink-0 mx-12">
+              <img 
+                src={logo} 
+                alt={`Company logo ${index + 1}`}
+                className="h-12 w-auto opacity-40 grayscale hover:opacity-60 hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+          ))}
+          {/* Duplicate set for seamless loop */}
+          {logos.map((logo, index) => (
+            <div key={`logo-2-${index}`} className="flex-shrink-0 mx-12">
+              <img 
+                src={logo} 
+                alt={`Company logo ${index + 1}`}
+                className="h-12 w-auto opacity-40 grayscale hover:opacity-60 hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }

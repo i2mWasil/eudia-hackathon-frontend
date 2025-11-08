@@ -4,6 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-family-serif: "Instrument Serif", serif;
+  --font-family-sans: "League Spartan", sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -116,5 +118,53 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: "League Spartan", sans-serif;
   }
+  .font-serif {
+    font-family: "Instrument Serif", serif !important;
+  }
+  .font-sans {
+    font-family: "League Spartan", sans-serif !important;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+  width: fit-content;
+}
+
+/* Fade effect on scroller edges */
+.scroll-fade-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-fade-container::before,
+.scroll-fade-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.scroll-fade-container::before {
+  left: 0;
+  background: linear-gradient(to right, var(--background) 0%, transparent 100%);
+}
+
+.scroll-fade-container::after {
+  right: 0;
+  background: linear-gradient(to left, var(--background) 0%, transparent 100%);
 }

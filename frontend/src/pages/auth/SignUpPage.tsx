@@ -71,8 +71,8 @@ export function SignUpPage({
           <form className="p-6 md:p-8" onSubmit={onSubmit}>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Create your account</h1>
-                <p className="text-muted-foreground text-sm text-balance">
+                <h1 className="text-4xl font-med font-serif">Create your account</h1>
+                <p className="text-muted-foreground text-sm text-balance mu-4">
                   Enter your email below to create your account
                 </p>
               </div>

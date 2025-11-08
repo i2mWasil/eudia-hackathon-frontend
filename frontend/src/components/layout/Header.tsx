@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "@/contexts/AuthContext"
 import { useTheme } from "@/contexts/ThemeContext"
 import { Button } from "@/components/ui/button"
-import logo from "@/assets/logo.svg"
 
 export function Header() {
   const { isAuthenticated, logout } = useAuth()
@@ -15,19 +14,31 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+    <header className="sticky top-4 z-50 px-6 py-4">
+      <div className="flex justify-between items-center max-w-7xl mx-auto bg-background/80 backdrop-blur-md border border-border rounded-2xl px-8 py-4 shadow-lg">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2">
-          <img 
-            src={logo} 
-            alt="Logo" 
-            className="h-10 w-10"
-          />
+        <Link to="/" className="flex items-center">
+          <h1 className="text-4xl font-serif">ProBono</h1>
         </Link>
 
         {/* Right side actions */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
+          {/* Auth Links or Logout */}
+          {isAuthenticated ? (
+            <Button variant="outline" size="sm" onClick={handleLogout}>
+              Log Out
+            </Button>
+          ) : (
+            <div className="flex gap-8 text-xl items-center">
+              <Link to="/login" className="hover:opacity-70 transition-opacity font-sans">
+                Login
+              </Link>
+              <Link to="/signup" className="hover:opacity-70 transition-opacity font-sans">
+                Sign up
+              </Link>
+            </div>
+          )}
+
           {/* Theme Toggle */}
           <Button 
             variant="ghost" 
@@ -68,12 +79,6 @@ export function Header() {
             )}
             <span className="sr-only">Toggle theme</span>
           </Button>
-
-          {isAuthenticated && (
-            <Button variant="outline" size="sm" onClick={handleLogout}>
-              Log Out
-            </Button>
-          )}
         </div>
       </div>
     </header>

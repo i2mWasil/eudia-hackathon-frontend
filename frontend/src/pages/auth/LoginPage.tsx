@@ -52,8 +52,8 @@ export function LoginPage({
           <form className="p-6 md:p-8" onSubmit={onSubmit}>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Welcome back</h1>
-                <p className="text-muted-foreground text-balance">
+                <h1 className="text-4xl font-med font-serif">Welcome back</h1>
+                <p className="text-muted-foreground text-balance mu-4">
                   Login to your account
                 </p>
               </div>
