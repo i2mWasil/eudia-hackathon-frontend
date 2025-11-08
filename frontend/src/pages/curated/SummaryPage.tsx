@@ -31,6 +31,11 @@ const fetchCompanyEULA = async (domain: string): Promise<CompanyData> => {
     
     // The API returns a string with the EULA content
     // Transform the response to match our CompanyData interface
+    let eulaContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+    
+    // Replace escaped newlines with actual newlines
+    eulaContent = eulaContent.replace(/\\n/g, '\n');
+    
     return {
       companyName: domain.split('.')[0].charAt(0).toUpperCase() + domain.split('.')[0].slice(1),
       domain: domain,
@@ -40,7 +45,7 @@ const fetchCompanyEULA = async (domain: string): Promise<CompanyData> => {
         month: 'long', 
         day: 'numeric' 
       }),
-      eulaContent: typeof data === 'string' ? data : JSON.stringify(data, null, 2),
+      eulaContent: eulaContent,
     };
   } catch (error) {
     console.error('Error fetching EULA:', error);
