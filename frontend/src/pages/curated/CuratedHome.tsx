@@ -3,42 +3,10 @@ import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
+import { InfiniteScroller } from "@/components/layout/InfiniteScroller"
 import { useTheme } from "@/contexts/ThemeContext"
 import artDarkSvg from "@/assets/art-dark.svg"
 import artLightSvg from "@/assets/art-light.svg"
-import adidasLogo from "@/assets/scroller/logo-adidas.svg"
-import anthropicLogo from "@/assets/scroller/logo-anthropic.svg"
-import appleLogo from "@/assets/scroller/logo-apple.svg"
-import disneyLogo from "@/assets/scroller/logo-disney.svg"
-import indeedLogo from "@/assets/scroller/logo-indeed.svg"
-import instagramLogo from "@/assets/scroller/logo-instagram.svg"
-import metaLogo from "@/assets/scroller/logo-meta.svg"
-import netflixLogo from "@/assets/scroller/logo-netflix.svg"
-import nikeLogo from "@/assets/scroller/logo-nike.svg"
-import perplexityLogo from "@/assets/scroller/logo-perplexity.svg"
-import playstationLogo from "@/assets/scroller/logo-playstation.svg"
-import redditLogo from "@/assets/scroller/logo-reddit.svg"
-import samsungLogo from "@/assets/scroller/logo-samsung.svg"
-import spotifyLogo from "@/assets/scroller/logo-spotify.svg"
-import uberLogo from "@/assets/scroller/logo-uber.svg"
-
-const logos = [
-  adidasLogo,
-  anthropicLogo,
-  appleLogo,
-  disneyLogo,
-  indeedLogo,
-  instagramLogo,
-  metaLogo,
-  netflixLogo,
-  nikeLogo,
-  perplexityLogo,
-  playstationLogo,
-  redditLogo,
-  samsungLogo,
-  spotifyLogo,
-  uberLogo,
-]
 
 export function CuratedHome() {
   const { user } = useAuth()
@@ -67,12 +35,19 @@ export function CuratedHome() {
             <div className="flex gap-4 pt-8">
               <Button 
                 size="lg" 
-                className="px-30 py-6 rounded-lg text-lg"
+                className="px-10 py-6 rounded-lg text-lg"
                 asChild
               >
                 <Link to="/dashboard">View Dashboard</Link>
               </Button>
-              
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="px-10 py-6 rounded-lg text-lg"
+                asChild
+              >
+                <Link to="/explore-curated">Explore</Link>
+              </Button>
             </div>
           </div>
           
@@ -88,30 +63,7 @@ export function CuratedHome() {
       </div>
 
       {/* Infinite Scroller Section */}
-      <div className="relative z-10 py-4 scroll-fade-container">
-        <div className="flex animate-scroll">
-          {/* First set of logos */}
-          {logos.map((logo, index) => (
-            <div key={`logo-1-${index}`} className="flex-shrink-0 mx-12">
-              <img 
-                src={logo} 
-                alt={`Company logo ${index + 1}`}
-                className="h-12 w-auto opacity-40 grayscale hover:opacity-60 hover:grayscale-0 transition-all duration-300"
-              />
-            </div>
-          ))}
-          {/* Duplicate set for seamless loop */}
-          {logos.map((logo, index) => (
-            <div key={`logo-2-${index}`} className="flex-shrink-0 mx-12">
-              <img 
-                src={logo} 
-                alt={`Company logo ${index + 1}`}
-                className="h-12 w-auto opacity-40 grayscale hover:opacity-60 hover:grayscale-0 transition-all duration-300"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      <InfiniteScroller />
 
       {/* Footer */}
       <Footer />

@@ -5,6 +5,7 @@ import { LoginPage } from "@/pages/auth/LoginPage"
 import { SignUpPage } from "@/pages/auth/SignUpPage"
 import { Profile } from "@/pages/Profile"
 import { ExplorePage } from "@/pages/public/ExplorePage"
+import { CuratedExplorePage } from "@/pages/curated/CuratedExplorePage"
 
 export function AppRoutes() {
   return (
@@ -25,6 +26,14 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/explore-curated"
+        element={
+          <ProtectedRoute>
+            <CuratedExplorePage />
           </ProtectedRoute>
         }
       />
