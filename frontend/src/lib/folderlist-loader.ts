@@ -8,8 +8,8 @@
  */
 export async function loadDomainList(): Promise<string[]> {
   try {
-    // Import the CSV file as raw text from public directory
-    const response = await fetch('/folderlist.csv')
+    // Import the CSV file as raw text from src/cache directory
+    const response = await fetch('/src/cache/folderlist.csv')
     if (!response.ok) {
       throw new Error(`Failed to load domain list: ${response.statusText}`)
     }
