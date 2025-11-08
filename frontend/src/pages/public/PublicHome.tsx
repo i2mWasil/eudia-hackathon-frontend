@@ -75,7 +75,7 @@ export function PublicHome() {
                 className="px-10 py-6 rounded-lg text-lg"
                 asChild
               >
-                <Link to="/track">Track</Link>
+                <Link to="/login">Track</Link>
               </Button>
             </div>
           </div>

@@ -67,19 +67,12 @@ export function CuratedHome() {
             <div className="flex gap-4 pt-8">
               <Button 
                 size="lg" 
-                className="px-10 py-6 rounded-lg text-lg"
+                className="px-30 py-6 rounded-lg text-lg"
                 asChild
               >
                 <Link to="/dashboard">View Dashboard</Link>
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="px-10 py-6 rounded-lg text-lg"
-                asChild
-              >
-                <Link to="/profile">Profile</Link>
-              </Button>
+              
             </div>
           </div>
           

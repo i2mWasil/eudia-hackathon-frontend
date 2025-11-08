@@ -2,15 +2,28 @@ import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "@/contexts/AuthContext"
 import { useTheme } from "@/contexts/ThemeContext"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useState } from "react"
 
-export function Header() {
+interface HeaderProps {
+  showSearch?: boolean
+}
+
+export function Header({ showSearch = false }: HeaderProps) {
   const { isAuthenticated, logout } = useAuth()
   const { theme, toggleTheme } = useTheme()
   const navigate = useNavigate()
+  const [searchQuery, setSearchQuery] = useState("")
 
   const handleLogout = () => {
     logout()
     navigate("/")
+  }
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle search logic here
+    console.log("Searching for:", searchQuery)
   }
 
   return (
@@ -20,6 +33,35 @@ export function Header() {
         <Link to="/" className="flex items-center">
           <h1 className="text-4xl font-serif">ProBono</h1>
         </Link>
+
+        {/* Search Bar - Only shown when showSearch is true */}
+        {showSearch && (
+          <form onSubmit={handleSearch} className="flex-1 max-w-2xl mx-8">
+            <div className="relative">
+              <Input
+                type="text"
+                placeholder="Search services..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 rounded-lg"
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                />
+              </svg>
+            </div>
+          </form>
+        )}
 
         {/* Right side actions */}
         <div className="flex items-center gap-6">

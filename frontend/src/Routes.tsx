@@ -4,12 +4,16 @@ import { Home } from "@/pages/Home"
 import { LoginPage } from "@/pages/auth/LoginPage"
 import { SignUpPage } from "@/pages/auth/SignUpPage"
 import { Profile } from "@/pages/Profile"
+import { ExplorePage } from "@/pages/public/ExplorePage"
 
 export function AppRoutes() {
   return (
     <Routes>
       {/* Public Home - Shows PublicHome or CuratedHome based on auth */}
       <Route path="/" element={<Home />} />
+      
+      {/* Explore Page */}
+      <Route path="/explore" element={<ExplorePage />} />
       
       {/* Auth Routes */}
       <Route path="/login" element={<LoginPage />} />
