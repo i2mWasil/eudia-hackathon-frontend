@@ -42,7 +42,7 @@ export function InfiniteScroller() {
             <img 
               src={logo} 
               alt={`Company logo ${index + 1}`}
-              className="h-10 w-auto max-w-[120px] object-contain opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+              className="h-10 w-auto max-w-[120px] object-contain opacity-40 brightness-0 dark:brightness-0 dark:invert hover:opacity-100 transition-all duration-300"
             />
           </div>
         ))}
@@ -52,7 +52,7 @@ export function InfiniteScroller() {
             <img 
               src={logo} 
               alt={`Company logo ${index + 1}`}
-              className="h-10 w-auto max-w-[120px] object-contain opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+              className="h-10 w-auto max-w-[120px] object-contain opacity-40 brightness-0 dark:brightness-0 dark:invert hover:opacity-100 transition-all duration-300"
             />
           </div>
         ))}
