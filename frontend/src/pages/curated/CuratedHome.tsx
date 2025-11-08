@@ -56,7 +56,7 @@ export function CuratedHome() {
           <div className="space-y-6">
             <h2 className="text-5xl lg:text-7xl font-serif leading-[1.1] text-left">
               Welcome back,<br />
-              <span className="text-4xl lg:text-6xl">{user?.email?.split("@")[0]}!</span>
+              <span className="text-4xl lg:text-7xl">{user?.email?.split("@")[0]}!</span>
             </h2>
             
             <p className="text-thin text-muted-foreground max-w-lg leading-relaxed pt-4 text-left">
