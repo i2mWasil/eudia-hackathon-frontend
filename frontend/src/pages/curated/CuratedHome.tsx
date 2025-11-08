@@ -38,7 +38,7 @@ export function CuratedHome() {
                 className="px-10 py-6 rounded-lg text-lg"
                 asChild
               >
-                <Link to="/dashboard">View Dashboard</Link>
+                <Link to="/dashboard">Dashboard</Link>
               </Button>
               <Button 
                 size="lg" 
@@ -46,7 +46,7 @@ export function CuratedHome() {
                 className="px-10 py-6 rounded-lg text-lg"
                 asChild
               >
-                <Link to="/explore-curated">Explore</Link>
+                <Link to="/compare-select">Compare</Link>
               </Button>
             </div>
           </div>

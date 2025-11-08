@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom"
 import { Card, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { getScoreColor } from "@/lib/score-colors"
@@ -8,10 +9,19 @@ interface CuratedCompanyCardProps {
 }
 
 export function CuratedCompanyCard({ company }: CuratedCompanyCardProps) {
+  const navigate = useNavigate()
+
+  const handleCompanyClick = () => {
+    navigate(`/summary?domain=${encodeURIComponent(company.domain)}`)
+  }
+
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow group">
       {/* Company Name Banner */}
-      <div className="relative h-48 overflow-hidden bg-black/60 flex items-center justify-center">
+      <div 
+        className="relative h-48 overflow-hidden bg-black/60 flex items-center justify-center cursor-pointer hover:bg-black/70 transition-colors"
+        onClick={handleCompanyClick}
+      >
         <div className="text-center">
           <h3 className="text-white text-6xl font-semibold px-4 font-serif">{company.name}</h3>
           <p className="text-white/80 text-sm mt-2 font-sans">Click for more details</p>

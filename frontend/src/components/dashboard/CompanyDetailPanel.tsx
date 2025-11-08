@@ -1,14 +1,21 @@
+import { useNavigate } from "react-router-dom"
 import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback"
 import { Progress } from "@/components/ui/progress"
 import { getScoreColor } from "@/lib/score-colors"
-import type { Company } from "@/components/cards/CompanyCard"
+import { Bookmark, BookmarkCheck, FileText } from "lucide-react"
+import type { Company } from "@/types/company"
 
 interface CompanyDetailPanelProps {
   company: Company | null;
+  isSaved?: boolean;
+  onToggleSaved?: () => void;
 }
 
-export function CompanyDetailPanel({ company }: CompanyDetailPanelProps) {
+export function CompanyDetailPanel({ company, isSaved = false, onToggleSaved }: CompanyDetailPanelProps) {
+  const navigate = useNavigate()
+  
   if (!company) {
     return (
       <div className="h-full flex items-center justify-center p-8">
@@ -17,6 +24,10 @@ export function CompanyDetailPanel({ company }: CompanyDetailPanelProps) {
         </div>
       </div>
     )
+  }
+
+  const handleViewSummary = () => {
+    navigate(`/summary?domain=${encodeURIComponent(company.domain)}`)
   }
 
   return (
@@ -80,15 +91,33 @@ export function CompanyDetailPanel({ company }: CompanyDetailPanelProps) {
         <CardContent className="p-6">
           <h3 className="text-lg font-semibold mb-3">Quick Actions</h3>
           <div className="space-y-2">
-            <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-accent transition-colors text-sm">
-              View Full Report
-            </button>
-            <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-accent transition-colors text-sm">
-              Compare with Others
-            </button>
-            <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-accent transition-colors text-sm text-destructive">
-              Remove from Dashboard
-            </button>
+            {onToggleSaved && (
+              <Button
+                variant="outline"
+                onClick={onToggleSaved}
+                className="w-full justify-start gap-2"
+              >
+                {isSaved ? (
+                  <>
+                    <BookmarkCheck className="h-4 w-4" />
+                    Remove from Dashboard
+                  </>
+                ) : (
+                  <>
+                    <Bookmark className="h-4 w-4" />
+                    Add to Dashboard
+                  </>
+                )}
+              </Button>
+            )}
+            <Button
+              variant="outline"
+              onClick={handleViewSummary}
+              className="w-full justify-start gap-2"
+            >
+              <FileText className="h-4 w-4" />
+              View Full EULA
+            </Button>
           </div>
         </CardContent>
       </Card>

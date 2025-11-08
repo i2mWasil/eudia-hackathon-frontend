@@ -43,7 +43,7 @@ export function PublicHome() {
                 className="px-10 py-6 rounded-lg text-lg"
                 asChild
               >
-                <Link to="/login">Track</Link>
+                <Link to="/compare-select">Compare</Link>
               </Button>
             </div>
           </div>
