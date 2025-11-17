@@ -2,8 +2,6 @@
 
 A modern web frontend for the EUDIA Hackathon project. This application implements the user-facing experience (pages, components, and flows) and communicates with the backend APIs to deliver the core features of the hackathon solution.
 
-> Tip: This README is designed to be immediately useful and safe-by-default. Replace the placeholder text (noted with TODO) with project-specific details as you refine the app.
-
 ![Product demo](./ProBono-launch.gif)
 
 ---
