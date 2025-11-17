@@ -1,4 +1,4 @@
-# EUDIA Hackathon — Frontend
+# ProBono — Frontend
 
 A modern web frontend for the EUDIA Hackathon project. This application implements the user-facing experience (pages, components, and flows) and communicates with the backend APIs to deliver the core features of the hackathon solution.
 
